@@ -1,0 +1,34 @@
+---
+# This is the script used to pracice the vars
+# 1. adding the username and password
+# 2. snmp server setting 
+# 3. use ios_commands to validate the configurations
+
+  - name: practice the ios_config_01
+    hosts: cisco
+    connection: network_cli
+    vars:
+      snmp_ip: 1.2.3.4
+
+    tasks:
+     - name: create the snmp setting
+       ios_config:
+        lines:
+         - snmp-server host {{snmp_ip}} version 2c Rongtao#19871212
+            
+
+     - name: adding user
+       ios_config:
+        lines:
+         - username {{user}} password {{passwd}}
+
+     - name: validation
+       ios_command:
+        commands:
+         - show run | include username
+         - show run | include snmp
+       register: command_output
+
+     - name: debug command_output
+       debug:
+        msg: "{{command_output}}"

@@ -1,0 +1,26 @@
+---
+
+  - name: practice ansible list
+    hosts: localhost
+    gather_facts: no
+
+    vars:
+      my_list:
+        - a
+        - b
+        - c
+    
+    tasks:
+
+     - name: debug the output
+       debug:
+        msg: the first valus is {{my_list[0]}}
+
+     - name: debug the output
+       debug:
+        msg: the second valus is {{my_list[1]}}
+
+
+     - name: debug the output
+       debug:
+        msg: the third valus is {{my_list[2]}}

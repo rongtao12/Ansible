@@ -1,0 +1,19 @@
+---
+
+  - name: user juniper module with netconf interface
+    hosts: juniper
+    gather_facts: no
+    roles:
+      - Juniper.junos
+
+    tasks:
+     - name: get the routes
+       juniper_junos_command:
+        commands:
+          - "show route"
+       register: route_output
+
+     - name: debug the output
+       debug:
+        msg: "{{route_output.stdout_lines[7][0:16]}}"
+       

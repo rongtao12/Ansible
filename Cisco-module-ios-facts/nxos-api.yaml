@@ -1,0 +1,18 @@
+---
+# enable the nxapi
+# configure the layer 3 interface ip address
+
+- name: enable the nx-api
+  hosts: nxos
+  gather_facts: no
+  vars:
+   ansible_connection: network_cli
+
+  tasks:
+    - name: enabling the NXOS api for both http and https
+      nxos_nxapi:
+        http: yes
+        http_port: 90
+        https: yes
+        https_port: 443
+        timeout: 100

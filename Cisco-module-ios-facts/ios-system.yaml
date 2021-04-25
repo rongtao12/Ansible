@@ -1,0 +1,17 @@
+---
+# This module is used for ios_system parameters management
+
+
+  - name: practice the ios_system module
+    hosts: r1
+    connection: network_cli
+
+    tasks:
+      - name: configure the hostname and domain name
+        ios_system:
+          hostname: ios01
+          domain_name: ios01.robrong.com
+
+      - name: close the dns lookup
+        ios_system:
+          lookup_enabled: no

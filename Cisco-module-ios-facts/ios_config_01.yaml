@@ -1,0 +1,21 @@
+---
+# This is the script used to pracice the ios_config
+# 1. adding the IP address and interface description
+# 2. up the interface
+
+  - name: practice the ios_config_01
+    hosts: r1
+    connection: network_cli
+
+    tasks:
+      - name: show version and show interdace
+        ios_config:
+          lines:
+            - description test interface
+            - ip address 8.8.8.8 255.255.255.0
+          parents: interface e0/1
+
+      - name: no shutdown the interface
+        ios_interface:
+         name: Ethernet0/1
+         enabled: True

@@ -1,0 +1,29 @@
+---
+
+  - name: user juniper module with netconf interface
+    hosts: juniper
+    gather_facts: no
+    vars_files:
+      - vmx-vars.yaml
+    roles:
+      - Juniper.junos
+
+    tasks:
+     - name: display the configuration as output
+       debug:
+        var: vmx_vars
+
+     - name: set the preconfiguration
+       juniper_junos_config:
+         config_mode: 'exclusive'
+         load: 'set'
+         lines: "{{ vmx_vars }}"
+         #commit: no
+         #check: yes
+         #diff: yes
+       register: check_output
+
+     - name: display the check_output
+       debug:
+         msg: "{{ check_output }}"
+

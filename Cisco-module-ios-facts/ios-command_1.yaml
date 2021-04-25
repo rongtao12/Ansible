@@ -1,0 +1,27 @@
+---
+# This is the script used to pracice the ios_command
+# task 1: show version and the output should containse IOS
+# the show interfaces should contains the loopback interface
+# Task 1: use the disctionary to clear the counter of interface e0/0
+
+
+  - name: practice the ios_command
+    hosts: r1
+    connection: network_cli
+
+    tasks:
+      - name: show version and show interdace
+        ios_command: 
+          commands:
+            - show version
+            - show interfaces
+          wait_for: 
+            - result[0] contains IOS
+            - result[1] contains Loopback
+
+      - name: clear the counter of the interface e0/0
+        ios_command:
+          commands:
+            - command: 'clear counters e0/0'
+              prompt: 'Clear "show interface" counters on this interface \[confirm\]'
+              answer: 'y'

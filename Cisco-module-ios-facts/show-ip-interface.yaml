@@ -1,0 +1,16 @@
+---
+# This the start of the playbook
+# It will download the running configurtion from the IOS cisco device
+- name: RUN COMMAND SHOW INTERFACE BRIEF
+  hosts: cisco
+  connection: network_cli
+  gather_facts: false
+
+  tasks:
+  
+    - name: use ios-facts to get the full running configurtion
+      cli_command:
+        command: show ip interface brief
+      register: command_output
+
+

@@ -1,0 +1,27 @@
+---
+# This module is used to for ios ping test
+
+#[cisco:vars]
+#ansible_connection=network_cli
+#ansible_user=rongtao
+#ansible_password=Rongtao#19871212
+#ansible_network_os=ios
+#ansible_become=yes   --> enter the priviliged mode for ping command 
+#ansible_become_method=enable
+#ansible_become_pass=Rongtao#19871212
+#ansible_python_interpreter=/usr/bin/python3
+
+  - name: ios ping test connectivity
+    hosts: r1
+    connection: network_cli
+
+    tasks:
+      - name: module ios_ping
+        ios_ping:
+          dest: 192.168.3.63
+          count: 100
+        register: ping_output
+
+      - name: debug the ping_output
+        debug:
+          msg: "{{ping_output}}"

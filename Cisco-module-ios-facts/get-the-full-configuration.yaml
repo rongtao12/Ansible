@@ -1,0 +1,20 @@
+---
+# This the start of the playbook
+# It will download the running configurtion from the IOS cisco device
+#
+
+  - name: get-running-configuration
+    hosts: r1
+    connection: network_cli
+
+    tasks:
+      - name: use ios-facts to get the full running configurtion
+        ios_facts:
+          gather_subset: all   #Possible values for this argument include all, hardware, config, and interfaces. Can specify a list of values to include a larger subset. Values can also be used with an initial ! to specify that a specific subset should not be collected.
+        register: command_output    # Store the output in the regsiter variable
+
+      - name: debug the result      #use debug module to display the output
+        debug:
+          msg: "{{command_output}}"
+
+

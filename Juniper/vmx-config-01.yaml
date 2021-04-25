@@ -1,0 +1,30 @@
+---
+
+  - name: user juniper module with netconf interface
+    hosts: juniper
+    gather_facts: no
+    vars_files:
+      - vmx-vars.yaml
+    roles:
+      - Juniper.junos
+
+    tasks:
+     - name: display the configuration as output
+       debug:
+        var: vmx_vars
+
+     - name: set the preconfiguration
+       juniper_junos_config:
+         load: 'set'
+         lines: "{{ vmx_vars }}"
+         commit: yes
+       register: commit_output
+
+     - name: display the commit_output
+       debug:
+         msg: "{{ commit_output }}"
+
+     - name: filter the output
+       debug:
+         msg: The configuration is set successfully
+       when: commit_output.changed == false

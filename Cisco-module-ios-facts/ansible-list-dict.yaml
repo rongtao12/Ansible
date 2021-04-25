@@ -1,0 +1,21 @@
+---
+
+  - name: practice ansible dict
+    hosts: localhost
+    gather_facts: no
+
+    vars:
+      my_item:
+        - math: 95
+          english: 81
+        - physical: 60
+
+    tasks:
+
+     - name: debug the output in Jinjia 2 mode
+       debug:
+        msg: the subject english score {{my_item[0].english}}
+
+     - name: debug the output in python mode
+       debug:
+        msg: the subject pysical score {{my_item[1]['physical']}}

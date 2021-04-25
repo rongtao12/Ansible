@@ -1,0 +1,21 @@
+---
+
+  - name: user juniper module with netconf interface
+    hosts: juniper
+    gather_facts: no
+    roles:
+      - Juniper.junos
+
+    tasks:
+     - name: get the facts
+       juniper_junos_facts:
+        host: "{{ ansible_host }}"
+       register: command_output
+
+     - name: debug the output
+       debug:
+       # msg: "{{command_output}}"
+        msg: " the device name is: {{ command_output.ansible_facts.junos.hostname }},
+        the model is: {{ command_output.ansible_facts.junos.model }},
+        the software version is: {{ command_output.ansible_facts.junos.version }},
+        "

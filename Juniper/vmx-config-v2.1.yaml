@@ -1,0 +1,30 @@
+---
+
+  - name: user juniper module with netconf interface
+    hosts: juniper
+    gather_facts: no
+    vars_files:
+      - vmx-vars.yaml
+    roles:
+      - Juniper.junos
+    vars_prompt:
+      - name: "confirm_result"
+        prompt: " please confirm: yes , or :no \n\n"
+        private: no
+
+    tasks:
+     - name: display the configuration as output
+       debug:
+         msg: thanks for the confirmation, we will go ahead with the following configuration.
+       when: confirm_result == "yes"
+       notify: This the notify function test
+
+     - name: failure process
+       fail:
+         msg: failed, the playbook will exit soon. thanks!
+       when: confirm_result != "yes"
+
+    handlers:
+      - name: This the notify function test
+        debug:
+          msg: This the notify function test msg

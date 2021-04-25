@@ -1,0 +1,9 @@
+---
+
+  - name: display the configuration
+    debug:
+      var: juniper_config
+
+  - name: the device name
+    debug:
+      var: inventory_hostname
